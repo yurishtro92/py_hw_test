@@ -1,3 +1,4 @@
+from pprint import pprint
 documents = [
     {"type": "passport", "number": "2207 876234", "name": "Василий Гупкин"},
     {"type": "invoice", "number": "11-2", "name": "Геннадий Покемонов"},
@@ -9,14 +10,14 @@ directories = {
     '3': []
 }
 def people_output(documents):
-    number = '11-2'
+    number = input('number:')
     for x in documents:
         if number == x['number']:
-            print(x['name'])
+            pprint(x['name'])
             return x['name']
     for x in documents:
         if number != x['number']:
-            print('Введен некорректный номер документа!')
+            pprint('Введен некорректный номер документа!')
             return
 
 def shelf_output(directories):
@@ -37,32 +38,32 @@ def list_output(documents):
     print(list_1)
 
 def add_document(documents, directories):
-    number = '1'
-    type_1 = 'passport'
-    name = 'mr.Noname'
-    shelf = '2'
+    number = input('number:')
+    type_1 = input('type:')
+    name = input('name:')
+    shelf = input('shelf:')
     documents.append({'type': type_1, 'number': number, 'name': name})
     for x in directories:
         if shelf == x:
             directories[x].append(number)
-            print(documents, directories)
-            return documents
+            pprint(documents)
+            pprint(directories)
+            return (documents[-1]['number'], documents[-1]['type'], documents[-1]['name'], directories[shelf][-1])
     for x in directories:
         if shelf != x:
-            print('Введен некорректный номер полки!')
-            return documents
+            return pprint('Введен некорректный номер полки!')
 
 def delete_document(documents, directories):
-    number = '11-2'
+    number = input('number:')
     for x in documents:
         if number == x['number']:
             documents.remove(x)
+            flag = True
             for key, value in dict(directories).items():
                 if number in value:
                     value.remove(number)
-    print(documents)
-    return documents
-
+    pprint(documents)
+    return flag
 
 def move_document(directories):
     number = input('Введите номер документа:')
